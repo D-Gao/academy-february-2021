@@ -1,0 +1,38 @@
+[GET] http://localhost:5000/case
+[GET] http://localhost:5000/case?country=SGP
+[GET] http://localhost:5000/case?country=SGP&from=2020-10-08
+[GET] http://localhost:5000/case?country=SGP&from=2020-10-08&to=2020-10-21
+
+[GET] http://localhost:5000/case-summary
+[GET] http://localhost:5000/case-summary?country=SGP
+[GET] http://localhost:5000/case-summary?country=SGP&from=2020-10-08
+[GET] http://localhost:5000/case-summary?country=SGP&from=2020-10-08&to=2020-10-21
+
+[POST] localhost:5000/case
+{
+         "yearWeek" : "2021/08/01",
+         "casesWeekly" : 8,
+         "deathsWeekly" : 8,
+         "countriesAndTerritories" : "Afghanistan",
+         "geoId" : "AF",
+         "countryTerritoryCode" : "AFG",
+         "popData2019" : 38041757,
+         "continentExp" : "Asia",
+         "notificationRate" : "1.33"
+}
+
+[PUT] localhost:5000/case
+{
+    "id": XXXXXXX,
+         "yearWeek" : "2021/08/01",
+         "casesWeekly" : 8,
+         "deathsWeekly" : 8,
+         "countriesAndTerritories" : "Afghanistan",
+         "geoId" : "AF",
+         "countryTerritoryCode" : "AFG",
+         "popData2019" : 38041757,
+         "continentExp" : "Asia",
+         "notificationRate" : "1.33"
+}
+
+[DELETE] localhost:5000/case/13

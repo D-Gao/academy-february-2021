@@ -1,0 +1,1 @@
+DB_CONNECTION = "mysql+mysqlconnector://mysql_tech_admin@techedgemysqlserver:academy0221$@techedgemysqlserver.mysql.database.azure.com:3306/academy"
