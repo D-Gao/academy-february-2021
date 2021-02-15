@@ -8,6 +8,12 @@ class CaseDistributionRepository:
     def __init__(self, *, db_engine):
         self.db_engine = db_engine
 
+    def get_case(self, case_id):
+        session_factory = sessionmaker(bind=self.db_engine)
+        session = session_factory()
+        data = session.query(Casedistribution).get(case_id)
+        return self.__get_case_dict(data)
+
     def get_cases(self, from_date, to_date, country):
         session_factory = sessionmaker(bind=self.db_engine)
         session = session_factory()

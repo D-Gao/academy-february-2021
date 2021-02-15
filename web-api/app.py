@@ -22,7 +22,7 @@ def index():
 
 
 @app.route('/case', methods=["GET"])
-def get_case():
+def get_cases():
     from_date = request.args.get('from')
     to_date = request.args.get('to')
     country = request.args.get('country')
@@ -30,11 +30,14 @@ def get_case():
     return jsonify(result)
 
 
+@app.route('/case/<int:case_id>', methods=["GET"])
+def get_case(case_id):
+    result = case_distribution_repository.get_case(case_id)
+    return jsonify(result)
+
+
 @app.route('/case-summary', methods=["GET"])
 def get_case_summary():
-    from_date = request.args.get('from')
-    to_date = request.args.get('to')
-    country = request.args.get('country')
     result = case_distribution_repository.get_cases_summary(from_date=from_date,to_date=to_date, country=country)
     return jsonify(result)
 
