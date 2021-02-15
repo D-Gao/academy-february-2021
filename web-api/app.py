@@ -14,6 +14,12 @@ app.url_map.strict_slashes = False
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_CONNECTION
 db = SQLAlchemy(app)
 
+case_distribution_repository = CaseDistributionRepository(db_engine=db.engine)
+
+@app.route('/')
+def index():
+    return "Techedge Academy - February 2021!"
+
 
 @app.route('/case', methods=["GET"])
 def get_case():
@@ -73,5 +79,4 @@ def handle_exception(e):
 
 
 if __name__ == '__main__':
-    case_distribution_repository = CaseDistributionRepository(db_engine=db.engine)
     app.run(debug=True)
