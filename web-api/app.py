@@ -18,7 +18,7 @@ case_distribution_repository = CaseDistributionRepository(db_engine=db.engine)
 
 @app.route('/')
 def index():
-    return "Techedge Academy - February 2021!"
+    return "Techedge Academy - February 2021 - v1.2"
 
 
 @app.route('/case', methods=["GET"])
@@ -38,6 +38,9 @@ def get_case(case_id):
 
 @app.route('/case-summary', methods=["GET"])
 def get_case_summary():
+    from_date = request.args.get('from')
+    to_date = request.args.get('to')
+    country = request.args.get('country')
     result = case_distribution_repository.get_cases_summary(from_date=from_date,to_date=to_date, country=country)
     return jsonify(result)
 
