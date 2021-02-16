@@ -33,6 +33,7 @@ class CaseDistributionRepository:
         session_factory = sessionmaker(bind=self.db_engine)
         session = session_factory()
         data = session.query(
+            Casedistribution.ContinentExp,
             Casedistribution.CountryTerritoryCode,
             Casedistribution.CountriesAndTerritories
         ).distinct().all()
