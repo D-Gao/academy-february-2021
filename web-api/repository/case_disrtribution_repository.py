@@ -33,6 +33,7 @@ class CaseDistributionRepository:
         session_factory = sessionmaker(bind=self.db_engine)
         session = session_factory()
         data = session.query(
+            Casedistribution.ContinentExp,
             Casedistribution.CountryTerritoryCode,
             Casedistribution.CountriesAndTerritories
         ).distinct().all()
@@ -151,8 +152,9 @@ class CaseDistributionRepository:
 
     def __get_country_dict(self, sql_alchemy_item):
         return {
-            "countryTerritoryCode": sql_alchemy_item.CountryTerritoryCode,
-            "countriesAndTerritories": sql_alchemy_item.CountriesAndTerritories
+            "continent": sql_alchemy_item.ContinentExp,
+            "code": sql_alchemy_item.CountryTerritoryCode,
+            "country": sql_alchemy_item.CountriesAndTerritories
         }
 
 
