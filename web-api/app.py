@@ -1,4 +1,5 @@
 import traceback
+from datetime import datetime
 from http.client import HTTPException
 
 from flask import Flask, request, jsonify
@@ -16,15 +17,22 @@ db = SQLAlchemy(app)
 
 case_distribution_repository = CaseDistributionRepository(db_engine=db.engine)
 
+def convert_date(date_text):
+    if date_text:
+        result = datetime.strptime(date_text, '%d/%m/%Y')
+        return result
+    else:
+        return None
+
 @app.route('/')
 def index():
-    return "Techedge Academy - February 2021 - v1.2"
+    return "Techedge Academy - February 2021 - v1.4"
 
 
 @app.route('/case', methods=["GET"])
 def get_cases():
-    from_date = request.args.get('from')
-    to_date = request.args.get('to')
+    from_date = convert_date(request.args.get('from'))
+    to_date = convert_date(request.args.get('to'))
     country = request.args.get('country')
     result = case_distribution_repository.get_cases(from_date=from_date,to_date=to_date, country=country)
     return jsonify(result)
@@ -38,8 +46,8 @@ def get_case(case_id):
 
 @app.route('/case-summary', methods=["GET"])
 def get_case_summary():
-    from_date = request.args.get('from')
-    to_date = request.args.get('to')
+    from_date = convert_date(request.args.get('from'))
+    to_date = convert_date(request.args.get('to'))
     country = request.args.get('country')
     result = case_distribution_repository.get_cases_summary(from_date=from_date,to_date=to_date, country=country)
     return jsonify(result)
