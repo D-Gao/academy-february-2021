@@ -119,6 +119,8 @@ class CaseDistributionRepository:
         session = session_factory()
         query = session.query(
             Casedistribution.CountryTerritoryCode,
+            Casedistribution.CountriesAndTerritories,
+            Casedistribution.ContinentExp,
             func.sum(Casedistribution.CasesWeekly).label("CasesWeeklySum"),
             func.sum(Casedistribution.DeathsWeekly).label("DeathsWeeklySum"))
 
@@ -131,7 +133,10 @@ class CaseDistributionRepository:
         if to_date is not None:
             query = query.filter(Casedistribution.YearWeek <= to_date)
 
-        data = query.group_by(Casedistribution.CountryTerritoryCode).all()
+        data = query.group_by(
+            Casedistribution.CountryTerritoryCode,
+            Casedistribution.CountriesAndTerritories,
+            Casedistribution.ContinentExp).all()
         result = [self.__get_case_summary_dict(item) for item in data]
         return result
 
@@ -139,14 +144,16 @@ class CaseDistributionRepository:
     def __get_case_dict(self, sql_alchemy_item):
         return {
             "id": sql_alchemy_item.Id,
-            "yearWeek": sql_alchemy_item.YearWeek,
+            "dateRep": sql_alchemy_item.YearWeek.strftime("%Y-%m-%d:%H:%M:%S"),
+            "dateRepString": sql_alchemy_item.YearWeek.strftime("%Y-%m-%d"),
+            "yearWeek": sql_alchemy_item.YearWeek.strftime("%Y-%m"),
             "casesWeekly": sql_alchemy_item.CasesWeekly,
             "deathsWeekly": sql_alchemy_item.DeathsWeekly,
-            "countryTerritoryCode": sql_alchemy_item.CountryTerritoryCode,
-            "countriesAndTerritories": sql_alchemy_item.CountriesAndTerritories,
+            "countryCode": sql_alchemy_item.CountryTerritoryCode,
+            "continent": sql_alchemy_item.ContinentExp,
+            "country": sql_alchemy_item.CountriesAndTerritories,
             "popData2019": sql_alchemy_item.PopData2019,
-            "tsInsert": sql_alchemy_item.TsInsert,
-            "tsUpdate": sql_alchemy_item.TsUpdate
+            "average": 0
         }
 
 
@@ -160,7 +167,9 @@ class CaseDistributionRepository:
 
     def __get_case_summary_dict(self, sql_alchemy_item):
         return {
-            "countryTerritoryCode": sql_alchemy_item.CountryTerritoryCode,
-            "casesWeeklySum": int(sql_alchemy_item.CasesWeeklySum),
-            "deathsWeeklySum": int(sql_alchemy_item.DeathsWeeklySum)
+            "countryCode": sql_alchemy_item.CountryTerritoryCode,
+            "country": sql_alchemy_item.CountriesAndTerritories,
+            "continent": sql_alchemy_item.ContinentExp,
+            "totalCase": int(sql_alchemy_item.CasesWeeklySum),
+            "totalDeaths": int(sql_alchemy_item.DeathsWeeklySum)
         }
