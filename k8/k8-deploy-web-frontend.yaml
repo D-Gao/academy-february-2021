@@ -1,0 +1,40 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: web-frontend
+  labels:
+    app: web-frontend 
+spec:
+  selector:
+    app: web-frontend
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000
+
+  
+    
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-frontend
+spec:
+  selector:
+      matchLabels:
+        app: web-frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: web-frontend
+    spec:
+      imagePullSecrets:
+        - name: regcred      
+      containers:
+        - name: web-frontend
+          image: techedgeopensource.azurecr.io/academy/web-frontend:latest         
+          ports:
+            - containerPort: 3000
+          imagePullPolicy: Always
+

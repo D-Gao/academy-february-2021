@@ -24,12 +24,12 @@ def convert_date(date_text):
     else:
         return None
 
-@app.route('/')
+@app.route('/web-api')
 def index():
     return "Techedge Academy - February 2021 - v1.4"
 
 
-@app.route('/case', methods=["GET"])
+@app.route('/web-api/case', methods=["GET"])
 def get_cases():
     from_date = convert_date(request.args.get('from'))
     to_date = convert_date(request.args.get('to'))
@@ -38,13 +38,13 @@ def get_cases():
     return jsonify(result)
 
 
-@app.route('/case/<int:case_id>', methods=["GET"])
+@app.route('/web-api/case/<int:case_id>', methods=["GET"])
 def get_case(case_id):
     result = case_distribution_repository.get_case(case_id)
     return jsonify(result)
 
 
-@app.route('/case-summary', methods=["GET"])
+@app.route('/web-api/case-summary', methods=["GET"])
 def get_case_summary():
     from_date = convert_date(request.args.get('from'))
     to_date = convert_date(request.args.get('to'))
@@ -53,27 +53,27 @@ def get_case_summary():
     return jsonify(result)
 
 
-@app.route('/case', methods=["POST"])
+@app.route('/web-api/case', methods=["POST"])
 def post_case():
     case_data = request.json
     result = case_distribution_repository.insert_case(case_data)
     return jsonify(result)
 
 
-@app.route('/case', methods=["PUT"])
+@app.route('/web-api/case', methods=["PUT"])
 def put_case():
     case_data = request.json
     result = case_distribution_repository.update_case(case_data)
     return jsonify(result)
 
 
-@app.route('/case/<int:case_id>', methods=["DELETE"])
+@app.route('/web-api/case/<int:case_id>', methods=["DELETE"])
 def delete_case(case_id):
     result = case_distribution_repository.delete_case(case_id)
     return jsonify(result)
 
 
-@app.route('/countries', methods=["GET"])
+@app.route('/web-api/countries', methods=["GET"])
 def get_countries():
     result = case_distribution_repository.get_countries()
     return jsonify(result)

@@ -1,0 +1,44 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: web-api
+  labels:
+    app: web-api 
+spec:
+  selector:
+    app: web-api
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+
+  
+    
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-api
+spec:
+  selector:
+      matchLabels:
+        app: web-api
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: web-api
+    spec:
+      imagePullSecrets:
+        - name: regcred      
+      containers:
+        - name: web-api
+          image: techedgeopensource.azurecr.io/academy/webapi:latest
+          env:
+          - name: PYTHONUNBUFFERED
+            value: "0"          
+         
+          ports:
+            - containerPort: 8000
+          imagePullPolicy: Always
+

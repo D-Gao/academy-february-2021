@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: web-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /web-api
+        backend:
+          serviceName: web-api
+          servicePort: 8000
+      - path: /
+        backend:
+          serviceName: web-frontend
+          servicePort: 3000
+
