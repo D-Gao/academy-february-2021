@@ -1,0 +1,48 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: data-transform
+  labels:
+    app: data-transform 
+spec:
+  selector:
+    app: data-transform
+  ports:
+  - protocol: TCP
+    port: 4000
+    targetPort: 4000
+    
+    
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-transform
+spec:
+  selector:
+      matchLabels:
+        app: data-transform
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: data-transform
+    spec:
+      imagePullSecrets:
+        - name: regcred      
+      containers:
+        - name: data-transform
+          image: techedgeopensource.azurecr.io/academy/data-transform:pd
+          env:
+          - name: PYTHONUNBUFFERED
+            value: "0"          
+         
+          ports:
+            - containerPort: 4000
+          imagePullPolicy: Always
+          livenessProbe:
+              httpGet:
+                path: /health
+                port: 4000           
+              initialDelaySeconds: 5
+              periodSeconds: 5          

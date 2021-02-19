@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-reader
+spec:
+  selector:
+      matchLabels:
+        app: data-reader
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: data-reader
+    spec:   
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: data-reader
+          image: techedgeopensource.azurecr.io/academy/data-reader:pd
+          imagePullPolicy: Always
+          env:
+          - name: PYTHONUNBUFFERED
+            value: "0"          
