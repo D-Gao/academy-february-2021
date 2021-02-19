@@ -32,7 +32,7 @@ spec:
         - name: regcred      
       containers:
         - name: data-transform
-          image: techedgeopensource.azurecr.io/academy/data-transform:pd
+          image: techedgeopensource.azurecr.io/academy/data-transform:pd_3
           env:
           - name: PYTHONUNBUFFERED
             value: "0"          
