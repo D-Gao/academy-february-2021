@@ -1,0 +1,31 @@
+@import "../../assets/style/variables.scss";
+
+.login-container {
+  width: 100%;
+  height: calc(100vh - 48px);
+
+  .login-wrapper {
+    .card-login {
+      border: 1px solid $black;
+      border-radius: 16px;
+      background-color: rgba($teal, 0.8);
+
+      .card-title {
+        text-align: center;
+      }
+      .button{
+        text-align: center;
+      }
+
+      .inputText {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $breakpoint-large) {
+  .login-container {
+    height: calc(100vh - 64px);
+  }
+}

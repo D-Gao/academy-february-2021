@@ -1,0 +1,24 @@
+@import "../../assets/style/variables.scss";
+
+.home-container {
+  width: 100%;
+  height: calc(100vh - 48px);
+  margin-top: 36px;
+
+  .search-container {
+    border: 1px solid $black;
+    border-radius: 16px;
+    padding: 16px;
+
+    .button-position {
+      text-align: center;
+    }
+  }
+}
+
+
+@media screen and (min-width: $breakpoint-large) {
+  .home-container {
+    height: calc(100vh - 48px);
+  }
+}

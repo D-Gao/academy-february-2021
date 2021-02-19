@@ -1,0 +1,14 @@
+[
+    {
+        "label": "Search",
+        "icon": "pi pi-search"
+    },
+    {
+        "label": "Dashboard",
+        "icon": "pi pi-chart-bar"
+    },
+    {
+        "label": "Back Office",
+        "icon": "pi pi-fw pi-pencil"
+    }
+]
